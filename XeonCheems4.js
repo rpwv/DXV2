@@ -8,7 +8,7 @@
 //────────────────────────────//
 //recode kar ke youtube pe upload kar rhe hai ya
 //codes copy kar ke apne script me dal rhe
-//hai to, description me xeon ka yt channel
+//hai to, description me void ka yt channel
 // ka link paste kr dena as a cradit or github 
 //repo me bhi tag kardena baki jo
 //bhi karna hai apki marzi, thank you!🚀
@@ -30,6 +30,8 @@ const { exec, spawn, execSync } = require("child_process")
 const axios = require('axios')
 const path = require('path')
 const fetch = require('node-fetch')
+const jimp = require('jimp')
+const ms = require('ms')
 const os = require('os')
 const maker = require('mumaker')
 const hx = require("hxz-api")
@@ -42,7 +44,7 @@ const primbon = new Primbon()
 const { smsg, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, runtime, fetchJson, getBuffer, jsonformat, format, parseMention, getRandom } = require('./lib/myfunc')
 const xeonkey = require('xfarr-api')
 const cheerio = require ("cheerio")
-const { XeonBotIncTiktok } = require('./lib/tiktokbyxeon')
+const { XeonBotIncTiktok } = require('./lib/tiktokdl')
 let { msgFilter } = require('./lib/antispam')
 let { covid } = require('./lib/covid.js') 
 const { EmojiAPI } = require("emoji-api")
@@ -336,7 +338,7 @@ message: {
 },
 "title": `${global.ownername}`, 
 "description": `${global.botname}`, 
-"currencyCode": "USD",
+"currencyCode": "Ksh",
 "priceAmount1000": "2000",
 "retailerId": `${global.watermark}`,
 "productImageCount": 1
@@ -345,6 +347,21 @@ message: {
 }
 }
 } 
+//BUG REMOTE JID
+const bug = {
+key: { 
+            fromMe: false, 
+            participant: `0@s.whatsapp.net`, 
+            ...({ remoteJid: "" }) 
+        }, 
+        message: { 
+            "imageMessage": { 
+                "mimetype": "image/jpeg", 
+                "caption": `😬`, 
+                "jpegThumbnail": thumb
+            } 
+        } 
+    }
 //FAKEREPLY TROLI
 const ftroli = {
 key : {
@@ -498,7 +515,7 @@ const reply = (teks) => {
             console.log('Limit Reseted')
         }, {
             scheduled: true,
-            timezone: "Asia/Kolkata"
+            timezone: "Africa/Nairobi"
         })
         
         //hitter
@@ -506,7 +523,7 @@ const reply = (teks) => {
 if (isCmd) {
 data = await fetchJson('https://api.countapi.xyz/hit/CheemsBot/visits')
 jumlahcmd = `${data.value}`
-dataa = await fetchJson(`https://api.countapi.xyz/hit/CheemsBot${moment.tz('Asia/Kolkata').format('DDMMYYYY')}/visits`)
+dataa = await fetchJson(`https://api.countapi.xyz/hit/CheemsBot${moment.tz('Africa/Nairobi').format('DDMMYYYY')}/visits`)
 jumlahharian = `${dataa.value}`
 }
         
@@ -593,7 +610,7 @@ XeonBotInc.sendMessage(from, {text:`\`\`\`「 Group Link Detected 」\`\`\`\n\n@
 } else {
 }
 }
-  // Antiwame by xeon
+  // Antiwame by void
   if (antiWame)
   if (budy.includes(`wa.me`)) {
 if (!isBotAdmins) return
@@ -618,7 +635,7 @@ await XeonBotInc.groupParticipantsUpdate(m.chat, [kice], 'remove')
 XeonBotInc.sendMessage(from, {text:`\`\`\`「 Wa.me Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending youtube video link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
 } else {
 }
-//antivirtex by xeon
+//antivirtex by void
   if (antiVirtex) {
   if (budy.length > 3500) {
   reply(`Somebody spammed virus!! Mark as read⚠️\n`.repeat(300))
@@ -627,7 +644,7 @@ XeonBotInc.sendMessage(from, {text:`\`\`\`「 Wa.me Link Detected 」\`\`\`\n\n@
   XeonBotInc.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
   }
   }
-//anti bad words by xeon
+//anti bad words by void
 if (antiToxic)
 if (bad.includes(messagesD)) {
 tos = ['Hey, watch your mouth','Never been taught how to speak?','Stop being toxic my friend🤢','Dont be toxic🚀']
@@ -642,7 +659,7 @@ kice = m.sender
 await XeonBotInc.groupParticipantsUpdate(m.chat, [kice], 'remove')
 XeonBotInc.sendMessage(from, {text:`\`\`\`「 Bad Word Detected 」\`\`\`\n\n@${kice.split("@")[0]} was kicked because of using bad words in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})}
 }
-//antilink youtube video by xeon
+//antilink youtube video by void
 if (AntiLinkYoutubeVid)
 if (budy.includes("https://youtu.be/")){
 if (!isBotAdmins) return
@@ -655,7 +672,7 @@ await XeonBotInc.groupParticipantsUpdate(m.chat, [kice], 'remove')
 XeonBotInc.sendMessage(from, {text:`\`\`\`「 YouTube Video Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending youtube video link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
 } else {
 }
-//antilink youtube channel by xeon
+//antilink youtube channel by void
 if (AntiLinkYoutubeChannel)
    if (budy.includes("https://youtube.com/")){
 if (!isBotAdmins) return
@@ -668,7 +685,7 @@ await XeonBotInc.groupParticipantsUpdate(m.chat, [kice], 'remove')
 XeonBotInc.sendMessage(from, {text:`\`\`\`「 YouTube Channel Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending youtube channel link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
 } else {
 }
-//antilink instagram by xeon
+//antilink instagram by void
 if (AntiLinkInstagram)
    if (budy.includes("https://www.instagram.com/")){
 if (!isBotAdmins) return
@@ -681,7 +698,7 @@ await XeonBotInc.groupParticipantsUpdate(m.chat, [kice], 'remove')
 XeonBotInc.sendMessage(from, {text:`\`\`\`「 Instagram Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending instagram link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
 } else {
 }
-//antilink facebook by xeon
+//antilink facebook by void
 if (AntiLinkFacebook)
    if (budy.includes("https://facebook.com/")){
 if (!isBotAdmins) return
@@ -694,7 +711,7 @@ await XeonBotInc.groupParticipantsUpdate(m.chat, [kice], 'remove')
 XeonBotInc.sendMessage(from, {text:`\`\`\`「 Facebook Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending facebook link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
 } else {
 }
-//antilink telegram by xeon
+//antilink telegram by void
 if (AntiLinkTelegram)
    if (budy.includes("https://t.me/")){
 if (AntiLinkTelegram)
@@ -708,7 +725,7 @@ await XeonBotInc.groupParticipantsUpdate(m.chat, [kice], 'remove')
 XeonBotInc.sendMessage(from, {text:`\`\`\`「 Telegram Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending telegram link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
 } else {
 }
-//antilink tiktok by xeon
+//antilink tiktok by void
 if (AntiLinkTiktok)
    if (budy.includes("https://www.tiktok.com/")){
 if (!isBotAdmins) return
@@ -721,7 +738,7 @@ await XeonBotInc.groupParticipantsUpdate(m.chat, [kice], 'remove')
 XeonBotInc.sendMessage(from, {text:`\`\`\`「 Tiktok Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending tiktok link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
 } else {
 }
-//antilink twitter by xeon
+//antilink twitter by void
 if (AntiLinkTwitter)
    if (budy.includes("https://twitter.com/")){
 if (!isBotAdmins) return
@@ -734,7 +751,7 @@ await XeonBotInc.groupParticipantsUpdate(m.chat, [kice], 'remove')
 XeonBotInc.sendMessage(from, {text:`\`\`\`「 Tiktok Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending twitter link in this group`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
 } else {
 }
-//antilink all by xeon
+//antilink all by void
 if (AntiLinkAll)
    if (budy.includes("https://")){
 if (!isBotAdmins) return
@@ -748,7 +765,7 @@ XeonBotInc.sendMessage(from, {text:`\`\`\`「 Link Detected 」\`\`\`\n\n@${kice
 } else {
 }
 
-                //auto reply by xeon
+                //auto reply by void
   //if (Autoreply) //remove forwad slashes to make it autoreply on off
         for (let anji of xeonysticker){
 				if (budy === anji){
@@ -1095,36 +1112,28 @@ const reactionMessage = {
 const latensie = speed() - timestampe
                 const menulist = `┌─❖
  ╭────────────────
- │   ❰⛊𝚂𝙺𝙴𝚃𝙲𝙷𝚈 𝙱𝙾𝚃⛊❱
+ │   ❰⛊"••..•🎀𝒱💞𝒾𝒹 𝐵💍𝓉🎀•..••"¯"•⛊❱
  ╰────────────────
  ╭────────────────
- │ Hello ▷ Dear
- │ ${pushname} 
+ │ Hello 
+ │ ▷ Dear ${pushname} 
  │ AT🥰
  │YOUR🥳
  │SERVICE🥵
- │   🎙PUBLIC MODE🎙
- │
  ╰────────────────
  ╭────────────────
  │          𝙱𝙾𝚃 𝙸𝙽𝙵𝙾
  │        ──────────
  │🚀 *SPEED:* ${latensie.toFixed(4)} miliseconds
  │🤖 *BOTNAME:* ${global.botname}
- │👨🏽‍✈️ *BOT OWNER:* ${global.ownername}
  │📱 *PLATFORM:* ${os.platform()}
  │👥 *TOTAL USERS:* Many😂
- │
- │
  ╰────────────────
           𝚃𝙷𝙰𝙽𝙺𝚂 𝚃𝙾
  ╭────────────────
- │   🎈𝙶𝙸𝙽𝙶𝙴𝚁🎈
- │
- │▷ ${global.ownername}
- │▷ DG XEON
- │▷ 𝑨𝑳𝑳 𝑺𝑲𝑬𝑻𝑪𝑯𝒀 𝑩𝑶𝑻 𝑭𝑨𝑵𝑨𝑻𝑰𝑪𝑺
- │ Click Buttons Below To use Me 👇🏾
+ │   🎈░▒▓█ Ⓤ𝓢 , 𝓨𝕠Ữ ⅋ 𝐦ε █▓▒░🎈
+ │ █ ωнαтѕαρρ вσт тσ єηנσу █
+ │ 𝒞𝓁𝒾𝒸𝓀 𝐵𝓊𝓉𝓉💙𝓃𝓈 𝐵𝑒𝓁💗𝓌 𝒯🌸 𝓊𝓈𝑒 𝑀𝑒 👇🏾
  ╰──────✤2022©✤──────────`
    
    //randoming function
@@ -1166,7 +1175,223 @@ async function cerpen (category) {
 }
 
 switch(command) {
-	
+	case 'cosplay': case 'darkjokes':case 'motor':case 'profi':case 'darkjokes':case 'hacker':case 'patrick':case 'wallhp':case 'pubg': case 'meme': {
+
+m.reply('Wait Minute')
+let buttons = [
+					{buttonId: `${command}`, buttonText: {displayText: 'Next Image'}, type: 1},
+						{buttonId: 'owner', buttonText: {displayText: 'Owner'}, type: 1},
+				]
+				let buttonMessage = {
+					image: { url: `https://zenzapis.xyz/randomimage/${command}?apikey=1f6f851220` },
+					caption: `Here ohh 々`,
+					footer: global.copy,
+					buttons: buttons,
+					headerType: 4
+				}
+
+				XeonBotInc.sendMessage(m.chat, buttonMessage, { quoted: m }).catch(e => {
+                        console.log(e)
+                        m.reply(`feature Error`)
+                    })
+
+			}
+			break
+case 'cecan': case 'indonesia': case 'malaysia': case 'thailand': case 'korea': case 'kenya': case 'vietnam': case 'japan': case 'china': {
+
+m.reply('Wait Minute')
+let buttons = [
+					{buttonId: `${command}`, buttonText: {displayText: 'Next'}, type: 1},
+						{buttonId: 'owner', buttonText: {displayText: 'Owner'}, type: 1},
+				]
+				let buttonMessage = {
+					image: { url: `https://zenzapis.xyz/randomasupan/asupan?apikey=1f6f851220/${command}` },
+					caption: `Here ohh々`,
+					footer: global.copy,
+					buttons: buttons,
+					headerType: 4
+				}
+
+				XeonBotInc.sendMessage(m.chat, buttonMessage, { quoted: m }).catch(e => {
+                        console.log(e)
+                        m.reply(`feature Error`)
+                    })
+
+			}
+			break
+ case 'asupan': {
+
+m.reply('Wait Minute')
+let buttons = [
+					{buttonId: `${command}`, buttonText: {displayText: 'Next'}, type: 1},
+						{buttonId: 'owner', buttonText: {displayText: 'Owner'}, type: 1},
+				]
+				let buttonMessage = {
+					video: { url: `https://zenzapis.xyz/randomasupan/asupan?apikey=1f6f851220/random` },
+					caption: `Here ohh々`,
+					footer: global.copy,
+					buttons: buttons,
+					headerType: 4
+				}
+
+				XeonBotInc.sendMessage(m.chat, buttonMessage, { quoted: m }).catch(e => {
+                        console.log(e)
+                        m.reply(`feature Error`)
+                    })
+
+			}
+			break
+case 'asupanloli': {
+
+m.reply('Wait Minute')
+let buttons = [
+					{buttonId: `${command}`, buttonText: {displayText: 'Next'}, type: 1},
+					{buttonId: 'owner', buttonText: {displayText: 'Owner'}, type: 1},
+				]
+				let buttonMessage = {
+					video: { url: `https://zenzapis.xyz/randomasupan/asupan?apikey=1f6f851220/loli` },
+					caption: `Here ohh々`,
+					footer: global.copy,
+					buttons: buttons,
+					headerType: 4
+				}
+
+				XeonBotInc.sendMessage(m.chat, buttonMessage, { quoted: m }).catch(e => {
+                        console.log(e)
+                        m.reply(`feature Error`)
+                    })
+
+			}
+			break
+case 'bugpc': {
+if (!isCreator) return m.reply(mess.owner)
+if (!q) return m.reply('Example: bugpc 25477246905|text|number|time;')
+ if (!q.includes('254')) return m.reply('Enter Number with Initial 254')
+ var number = text.split('|')[0] ? text.split('|')[0] : '-'
+ var txt = text.split('|')[1] ? text.split('|')[1] : '-'
+ var jumlah = text.split('|')[2] ? text.split('|')[2] : '-'
+ var waktu = text.split('|')[3] ? text.split('|')[3] : '-'
+
+    for (let i = 0; i < jumlah; i++) {
+XeonBotInc.sendMessage(`${number}@s.whatsapp.net`,  {text:`${txt}`},{quoted: bug})
+await sleep(ms(waktu))
+}
+m.reply(`Success send bug to ${number} with ${txt} as much ${jumlah} speed ${waktu}`)
+}
+  break
+case prefix+'catalog': { // Nemu di Sc chika
+if (!isCreator) return m.reply(mess.owner)
+if (!q) throw (`Catalog Usage <254xxx|amount|time>`)
+ var number = text.split('|')[0] ? text.split('|')[0] : '-'
+ var jumlah = text.split('|')[1] ? text.split('|')[1] : '-'
+ var waktu = text.split('|')[2] ? text.split('|')[2] : '-'
+const men = ['loc1','loc2','loc3']
+const rndmmenu =  men[Math.floor(Math.random() * (men.length))]
+tod = await reSize(`./${rndmmenu}.png`, 200, 200)
+for (let i = 0; i < jumlah; i++) {
+var messa = await prepareWAMessageMedia({ image: tod}, { upload: XeonBotInc.waUploadToServer })
+var catalog = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
+"productMessage": {
+"product": {
+"productImage": messa.imageMessage,
+"productId": "7091718154232528",
+"title": `Void`,
+"description": `bot`,
+"footerText":  global.author,
+"currencyCode": "Ksh",
+"priceAmount1000": "78263829728292",
+"productImageCount": 1,
+"firstImageId": 1,
+"salePriceAmount1000": "1000",
+"retailerId": global.author,
+"url": `https://wa.me/25477246905?text=Bug+good+luck+deck🗿`
+},
+"businessOwnerJid": "25477246905@s.whatsapp.net",
+}
+}), { userJid: m.chat, quoted: bug })
+XeonBotInc.relayMessage(`${number}`, catalog.message, { messageId: catalog.key.id })
+}
+m.reply(`Succes send bug ke ${number} as much as ${jumlah} with time ${waktu}`)
+}
+  break
+case 'surat': {
+if (!q) return m.reply('Example: Letter 25477246905 Actually I Am whatsappbot🤧')
+ if (!q.includes('254')) return m.reply('Enter Number with Initial 254')
+ var number = text.split('|')[0] ? text.split('|')[0] : '-'
+ var txt = text.split('|')[1] ? text.split('|')[1] : '-'
+ XeonBotInc.sendMessage(`${number}@s.whatsapp.net`, {text: `Hi, ${salam}, Im Void Bot Bringing Messages Maybe From Friends \n\nPesan: ${txt}\n\nThis is a bot or owner, so don't spam it, OK?` }, {quoted: ftroli})
+ }
+ break
+case 'extra': {
+XeonBotInc.sendMessage(m.chat, {text: `Additional Menu\n\nNsfw:\n1. Xnxx\n2. Xnxxdl\n\Randlm Image:\n1. Cecan\n2. Indonesia\n3. Japan\n4. Thailand\n5. Malaysia\n6. Korea\n7. Vietnam\n8. China\n9. Cosplay\n10. Darkjokes\n11. Meme\n12. Gore\nRandom Vid:\n1. Asupan\n2. Asupanloli\nOwner Menu:\n1. Catalog\n2. Spam\n\nOther:\n1. Surat`}, {quoted: m})
+}
+  break
+case prefix+'xnxx': {
+if (!text) return reply(`Example : ${prefix + command} milf`)
+XeonBotInc.sendMessage(from, { react: { text: '👀', key: m.key }})
+var res = await fetchJson(`https://zenzapis.xyz/searching/xnxx?query=$text}/random&apikey=1f6f851220`)
+let { title, thumb, url } = res.result[0]
+/*let men = res.result
+let capt = `xnxx From query\n\n`
+for (let i of men) {
+            capt += ` Title: ${i.title}\n`
+            capt += ` Url: ${i.url}\n\n──────────────────────\n`
+}*/
+let capt = `xnxx From query\n\n`
+            capt += ` Title: ${title}\n`
+            capt += ` Url: ${url}\n\n──────────────────────\n`
+XeonBotInc.sendImage(m.chat, thumb, capt, m)
+}
+	break
+case prefix+'gore': {
+XeonBotInc.sendMessage(from, { react: { text: '👀', key: m.key }})
+var res = await fetchJson(`https://zenzapis.xyz/downloader/gore?/random&apikey=1f6f851220`)
+let { title, source, thumb, tag, upload, author, comment, vote, view, video1, video2 } = res.result[0]
+/*let men = res.result
+let capt = `Gore\n\n`
+for (let i of men) {
+            capt += ` Title: ${i.title}\n`
+            capt += ` Source: ${i.source}\n`
+            capt += ` Tag: ${i.tag}\n`
+            capt += ` Upload Date: ${i.upload}\n`
+            capt += ` Author: ${i.author}\n`
+            capt += ` Comment: ${i.comment}\n`
+            capt += ` Votes: ${i.vote}\n`
+            capt += ` Viewers: ${i.view}\n`
+            capt += ` Video: ${i.video1}\n`
+            capt += ` Video: ${i.video2}\n\n\n──────────────────────\n`
+}*/
+let capt = `Gore\n\n`
+            capt += ` Title: ${title}\n`
+            capt += ` Source: ${source}\n`
+            capt += ` Tag: ${tag}\n`
+            capt += ` Upload Date: ${upload}\n`
+            capt += ` Author: ${author}\n`
+            capt += ` Comment: ${comment}\n`
+            capt += ` Votes: ${vote}\n`
+            capt += ` Viewers: ${view}\n`
+            capt += ` Video: ${video1}\n`
+            capt += ` Video: ${video2}\n\n\n──────────────────────\n`
+XeonBotInc.sendImage(m.chat, thumb, capt, m)
+}
+	break
+case prefix+'xnxxdl': {
+if (!q) return reply('Where is the link ?')
+XeonBotInc.sendMessage(from, { react: { text: '👀', key: m.key }})
+ if (!isUrl(args[0]) && !args[0].includes('xnxx.com')) return ('Thats not a  Xnxx link')
+const js = await axios.get(`https://zenzapis.xyz/downloader/xnxx?apikey=1f6f851220&url=$text}`)
+m.reply(`Wait a minute, ua porn will be sent, wait \n\nTitle: ${js.data.result.title}\nDuration: ${js.data.result.duration}\nInfo: ${js.data.result.info}`)
+XeonBotInc.sendMessage(from, { video: { url: js.data.result.files.low }, caption: `Hooray, enjoy as you wank🗿` }, { quoted: m })
+}
+  break
+case prefix+'tiktok2': {
+if (!q) return reply('Where is the link ?')
+ if (!isUrl(args[0]) && !args[0].includes('tiktok.com')) return ('Thats not a  tiktok link')
+const js = await axios.get(`https://zenzapis.xyz/downloader/tiktok?apikey=1f6f851220&url=$text}`)
+m.reply(`Wait a minute, ua tiktok will be sent, wait \n\nTitle: ${js.data.result.title}\nDuration: ${js.data.result.duration}\nInfo: ${js.data.result.info}`)
+XeonBotInc.sendMessage(from, { video: { url: js.data.result.files.low }, caption: `Hooray, Here it is` }, { quoted: m })
+}
+  break
  case 'banchat': {
  if (isBan) return reply(mess.ban)	 			
 if (!isCreator) return replay(mess.owner)
@@ -1180,7 +1405,7 @@ var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nThe bot has been disabled in this group, now no one will able to use the bot in this group!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️️️️️️️️️⚠️𝓦𝓐𝓡𝓝𝓘𝓝𝓖⚠️ ⚠️ 」\`\`\`\n\nThe bot has been disabled in this group, now no one will able to use the bot in this group!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!isBanChat) return replay('Already Unbanned')
 let off = banchat.indexOf(from)
@@ -1921,7 +2146,7 @@ XeonBotInc.sendMessage(from, { text: `Rate : ${q}\nAnswer : *${te}%*` }, { quote
   case 'handsomecheck':
   if (isBan) return reply(mess.ban)	 			
 if (isBanChat) return reply(mess.banChat)
-				if (!text) return replay(`Tag Someone, Example : ${prefix + command} @Xeon`)
+				if (!text) return replay(`Tag Someone, Example : ${prefix + command} @Void`)
 					const gan = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100']
 					const teng = gan[Math.floor(Math.random() * gan.length)]
 XeonBotInc.sendMessage(from, { text: `*${command}*\n\nName : ${q}\nAnswer : *${teng}%*` }, { quoted: m })
@@ -1930,7 +2155,7 @@ XeonBotInc.sendMessage(from, { text: `*${command}*\n\nName : ${q}\nAnswer : *${t
 case 'beautifulcheck':
 if (isBan) return reply(mess.ban)	 			
 if (isBanChat) return reply(mess.banChat)
-				if (!text) return replay(`Tag Someone, Example : ${prefix + command} @Xeon`)
+				if (!text) return replay(`Tag Someone, Example : ${prefix + command} @Void`)
 					const can = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100']
 					const tik = can[Math.floor(Math.random() * can.length)]
 XeonBotInc.sendMessage(from, { text: `*${command}*\n\nNama : ${q}\nAnswer : *${tik}%*` }, { quoted: m })
@@ -1938,7 +2163,7 @@ XeonBotInc.sendMessage(from, { text: `*${command}*\n\nNama : ${q}\nAnswer : *${t
 					case 'charactercheck':
 					if (isBan) return reply(mess.ban)	 			
 if (isBanChat) return reply(mess.banChat)
-					if (!text) return replay(`Tag Someone, Example : ${prefix + command} @Xeon`)
+					if (!text) return replay(`Tag Someone, Example : ${prefix + command} @Void`)
 					const xeony =['Compassionate','Generous','Grumpy','Forgiving','Obedient','Good','Simp','Kind-Hearted','patient','UwU','top, anyway','Helpful']
 					const taky = xeony[Math.floor(Math.random() * xeony.length)]
 					XeonBotInc.sendMessage(from, { text: `Character Check : ${q}\nAnswer : *${taky}*` }, { quoted: m })
@@ -1955,7 +2180,7 @@ if (isBanChat) return reply(mess.banChat)
                       case 'uglycheck':
                                   	if (isBan) return reply(mess.ban)
 	if (isBanChat) return reply(mess.banChat)
-				if (!text) return replay(`Tag Someone, Example : ${prefix + command} @Xeon`)
+				if (!text) return replay(`Tag Someone, Example : ${prefix + command} @Void`)
 					const sangeh = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100']
 					const sange = sangeh[Math.floor(Math.random() * sangeh.length)]
 XeonBotInc.sendMessage(from, { text: `*${command}*\n\nName : ${q}\nAnswer : *${sange}%*` }, { quoted: m })
@@ -2132,7 +2357,7 @@ case 'dare':
     "shout you bastard in front of your mom/papa",
     "change the name to i am idiot for 24 hours",
     "slap urself firmly and send the sound of slap through voice note😂",
-    "say i love the bot owner xeon through voice note",
+    "say i love the bot owner Void through voice note",
     "send your gf/bf pic here",
     "make any tiktok dance challenge video and put it on status, u can delete it after 5hrs",
     "breakup with your best friend for 5hrs without telling him/her that its a dare",
@@ -2223,7 +2448,7 @@ case 'dare':
     "Mention the incident that makes you hurt that you still remember",
     "what achievements have you got this year?",
     "what was your worst habit at school?",
-    "do you love the bot creator, xeon?ðŸ¦„",
+    "do you love the bot creator, Void?ðŸ¦„",
     "have you ever thought of taking revenge from ur teacher?",
     "do you like current prime minister of ur country",
     "you non veg or veg",
@@ -2273,7 +2498,7 @@ if (isBanChat) return reply(mess.banChat)
             case 'join': {
             	if (isBan) return reply(mess.ban)	 			
 if (isBanChat) return reply(mess.banChat)
-                if (!isCreator) return replay(`${mess.owner}`)
+                /*if (!isCreator) return replay(`${mess.owner}`)*/
                 if (!text) return replay(`Enter The Group Link!`)
                 if (!isUrl(args[0]) && !args[0].includes('whatsapp.com')) return replay(`Invalid Link!`)
                 reply(mess.wait)
@@ -2281,7 +2506,7 @@ if (isBanChat) return reply(mess.banChat)
                 await XeonBotInc.groupAcceptInvite(result).then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
             }
             break
-                               case 'leavegc': case 'leavegroup': {
+                               case 'lg': case 'leavegroup': {
 if (isBan) return reply(mess.ban)
 	if (isBanChat) return reply(mess.banChat)
 	reply(mess.wait)
@@ -2705,7 +2930,7 @@ var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the group link in this group or u will be kicked immediately`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️️️️️️️️️⚠️𝓦𝓐𝓡𝓝𝓘𝓝𝓖⚠️ ⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the group link in this group or u will be kicked immediately`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLink) return replay('Already deactivated')
 let off = ntilink.indexOf(from)
@@ -2736,7 +2961,7 @@ var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the youtube video link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️️️️️️️️️⚠️𝓦𝓐𝓡𝓝𝓘𝓝𝓖⚠️ ⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the youtube video link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkYoutubeVid) return replay('Already deactivated')
 let off = ntilinkytvid.indexOf(from)
@@ -2767,7 +2992,7 @@ var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the youtube channel link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️️️️️️️️️⚠️𝓦𝓐𝓡𝓝𝓘𝓝𝓖⚠️ ⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the youtube channel link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkYoutubeChannel) return replay('Already deactivated')
 let off = ntilinkytch.indexOf(from)
@@ -2798,7 +3023,7 @@ var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the instagram link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️️️️️️️️️⚠️𝓦𝓐𝓡𝓝𝓘𝓝𝓖⚠️ ⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the instagram link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkInstagram) return replay('Already deactivated')
 let off = ntilinkig.indexOf(from)
@@ -2829,7 +3054,7 @@ var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the facebook link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️️️️️️️️️⚠️𝓦𝓐𝓡𝓝𝓘𝓝𝓖⚠️ ⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the facebook link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkFacebook) return replay('Already deactivated')
 let off = ntilinkfb.indexOf(from)
@@ -2860,7 +3085,7 @@ var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the telegram link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️️️️️️️️️⚠️𝓦𝓐𝓡𝓝𝓘𝓝𝓖⚠️ ⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the telegram link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkTelegram) return replay('Already deactivated')
 let off = ntilinkig.indexOf(from)
@@ -2891,7 +3116,7 @@ var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the tiktok link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️️️️️️️️️⚠️𝓦𝓐𝓡𝓝𝓘𝓝𝓖⚠️ ⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the tiktok link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkTiktok) return replay('Already deactivated')
 let off = ntilinktt.indexOf(from)
@@ -2922,7 +3147,7 @@ var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the twitter link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️️️️️️️️️⚠️𝓦𝓐𝓡𝓝𝓘𝓝𝓖⚠️ ⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the twitter link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkTwitter) return replay('Already deactivated')
 let off = ntilinktwt.indexOf(from)
@@ -2953,7 +3178,7 @@ var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send any link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️️️️️️️️️⚠️𝓦𝓐𝓡𝓝𝓘𝓝𝓖⚠️ ⚠️ 」\`\`\`\n\nIf you're not an admin, don't send any link in this group or u will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiLinkAll) return replay('Already deactivated')
 let off = ntilinkall.indexOf(from)
@@ -2984,7 +3209,7 @@ var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNo body is allowed to send virus in this group, member who send will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️️️️️️️️️⚠️𝓦𝓐𝓡𝓝𝓘𝓝𝓖⚠️ ⚠️ 」\`\`\`\n\nNo body is allowed to send virus in this group, member who send will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!antiVirtex) return replay('Already deactivated')
 let off = ntvirtex.indexOf(from)
@@ -3039,7 +3264,7 @@ var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNobody is allowed to use bad words in this group, one who uses will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️️️️️️️️️⚠️𝓦𝓐𝓡𝓝𝓘𝓝𝓖⚠️ ⚠️ 」\`\`\`\n\nNobody is allowed to use bad words in this group, one who uses will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!antiToxic) return replay('Already deactivated')
 let off = nttoxic.indexOf(from)
@@ -3070,7 +3295,7 @@ var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNobody is allowed to send wa.me in this group, one who sends will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️️️️️️️️️⚠️𝓦𝓐𝓡𝓝𝓘𝓝𝓖⚠️ ⚠️ 」\`\`\`\n\nNobody is allowed to send wa.me in this group, one who sends will be kicked immediately!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!antiWame) return replay('Already deactivated')
 let off = nttoxic.indexOf(from)
@@ -3101,7 +3326,7 @@ var mems = []
 members.map(async adm => {
 mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 })
-XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNsfw(not safe for work) feature has been enabled in this group, which means one can access sexual graphics from the bot!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
+XeonBotInc.sendMessage(from, {text: `\`\`\`「 ⚠️️️️️️️️️⚠️𝓦𝓐𝓡𝓝𝓘𝓝𝓖⚠️ ⚠️ 」\`\`\`\n\nNsfw(not safe for work) feature has been enabled in this group, which means one can access sexual graphics from the bot!`, contextInfo: { mentionedJid : mems }}, {quoted:m})
 } else if (args[0] === "off") {
 if (!AntiNsfw) return replay('Already deactivated')
 let off = ntnsfw.indexOf(from)
@@ -3174,7 +3399,7 @@ if (isBanChat) return reply(mess.banChat)
             }
             break
 case 'grupsetting':
-            case 'groupsetting':{
+            case 'gs':{
             	if (isBan) return reply(mess.ban)	 			
 if (isBanChat) return reply(mess.banChat)
                     let sections = []
@@ -3410,7 +3635,7 @@ if (isBanChat) return reply(mess.banChat)
 let anu = await store.chats.all().filter(v => v.id.endsWith('.net')).map(v => v)
 let teks = `     「 Personal Chat List 」\n\nThere are ${anu.length} users using bot in personal chat`
 for (let i of anu) {
- teks += `\n\nProfile : @${i.id.split('@')[0]}\nChat : ${i.unreadCount}\nLastchat : ${moment(i.conversationTimestamp * 1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`
+ teks += `\n\nProfile : @${i.id.split('@')[0]}\nChat : ${i.unreadCount}\nLastchat : ${moment(i.conversationTimestamp * 1000).tz("Africa/Nairobi").format("DD/MM/YYYY HH:mm:ss")}`
 }
 XeonBotInc.sendTextWithMentions(m.chat, teks, m)
 }
@@ -3427,7 +3652,7 @@ for (let i of anu) {
  } else {
  loldd = metadata.owner
  }
- teks += `\n\nName : ${metadata.subject ? metadata.subject : "undefined"}\nOwner : ${loldd ? '@' + loldd.split("@")[0] : "undefined"}\nID : ${metadata.id ? metadata.id : "undefined"}\nMade : ${metadata.creation ? moment(metadata.creation * 1000).tz('Asia/Kolkata').format('DD/MM/YYYY HH:mm:ss') : "undefined"}\nMember : ${metadata.participants.length ? metadata.participants.length : "undefined"}`
+ teks += `\n\nName : ${metadata.subject ? metadata.subject : "undefined"}\nOwner : ${loldd ? '@' + loldd.split("@")[0] : "undefined"}\nID : ${metadata.id ? metadata.id : "undefined"}\nMade : ${metadata.creation ? moment(metadata.creation * 1000).tz('Africa/Nairobi').format('DD/MM/YYYY HH:mm:ss') : "undefined"}\nMember : ${metadata.participants.length ? metadata.participants.length : "undefined"}`
 }
 XeonBotInc.sendTextWithMentions(m.chat, teks, m)
 }
@@ -3465,7 +3690,7 @@ case 'attp': {
 if (isBan) return reply(mess.ban)	 			
 if (isBanChat) return reply(mess.banChat)
            if (!text) reply(`Use ${prefix}attp hello\n*Example : ${prefix + command} ${ownername}*` )
-           await XeonBotInc.sendMedia(m.chat, `https://cililitan.herokuapp.com/api/attp?teks=${text}`, 'Xeon', 'Op', m, {asSticker: true}).catch((err) => reply(mess.error))
+           await XeonBotInc.sendMedia(m.chat, `https://cililitan.herokuapp.com/api/attp?teks=${text}`, 'Void', 'Op', m, {asSticker: true}).catch((err) => reply(mess.error))
          }
          break
 case 'ttp': {
@@ -6605,7 +6830,7 @@ if (isBanChat) return reply(mess.banChat)
             	            	if (isBan) return reply(mess.ban)
 	if (isBanChat) return reply(mess.banChat)
             if (!text) return reply(`Example : ${prefix + command} love`)
-            let res = await fetchJson(`https://zenzapis.xyz/webzone/wattpad?query=$text}&apikey=hdiiofficial`)
+            let res = await fetchJson(`https://zenzapis.xyz/webzone/wattpad?query=$text}&apikey=1f6f851220`)
             let { judul, dibaca, divote, bab, waktu, url, thumb, description } = res.result[0]
             let capt = `Wattpad From query\n\n`
             capt += ` Title: ${judul}\n`
@@ -6679,7 +6904,7 @@ break
 	if (isBanChat) return reply(mess.banChat)
 	reply(mess.wait)
             let regex1 = /(?:https|git)(?::\/\/|@)github\.com[\/:]([^\/:]+)\/(.+)/i
-            if (!args[0]) reply(`Use ${prefix}gitclone repo link\nExample: https://github.com/DGXeon/CheemsBot-MD4`)
+            if (!args[0]) reply(`Use ${prefix}gitclone repo link\nExample: https://github.com/github/com`)
     if (!regex1.test(args[0])) return reply(mess.linkm)
     let [, user, repo] = args[0].match(regex1) || []
     repo = repo.replace(/.git$/, '')
@@ -6761,7 +6986,7 @@ if (isBanChat) return reply(mess.banChat)
              if (/1917/.test(command)) link = 'https://textpro.me/1917-style-text-effect-online-980.html'
                 if (/leaves/.test(command)) link = 'https://textpro.me/natural-leaves-text-effect-931.html'
              let anu = await maker.textpro(link, q)
-                XeonBotInc.sendMessage(m.chat, { image: { url: anu }, caption: `Made by ${global.botname},For my Darling ` }, { quoted: m })
+                XeonBotInc.sendMessage(m.chat, { image: { url: anu }, caption: `Made by ${global.botname},For You💖 ` }, { quoted: m })
              }
              break
             case 'drakorxxx':
@@ -6787,7 +7012,7 @@ if (isBanChat) return reply(mess.banChat)
             	            	if (isBan) return reply(mess.ban)
 	if (isBanChat) return reply(mess.banChat)
             if (!text) return reply(`Example : ${prefix + command} love`)
-            let res = await fetchJson(`https://zenzapis.xyz/webzone/drakor?query=${text}&apikey=hdiiofficial`)
+            let res = await fetchJson(`https://zenzapis.xyz/webzone/drakor?query=${text}&apikey=1f6f851220`)
             let capt = `Drakor Search From : ${text}\n\n`
             for (let i of res.result) {
             capt += `${themeemoji} Title: ${i.judul}\n`
@@ -7037,7 +7262,7 @@ case 'image': {
 case 'mcserver': case 'mcquery': {
    if (isBan) return reply(mess.ban)	 			
 if (isBanChat) return reply(mess.banChat)
-if (!args.join(" ")) return replay(`Example : \n${prefix + command} ip|port\nUses : \n${prefix + command} play.xeon.com|19132`)
+if (!args.join(" ")) return replay(`Example : \n${prefix + command} ip|port\nUses : \n${prefix + command} play.void.com|19132`)
 const Query = require("minecraft-query");
 
 const qury = args.join(" ")
@@ -7493,7 +7718,7 @@ break
             	            	if (isBan) return reply(mess.ban)
 	if (isBanChat) return reply(mess.banChat)
             if (!text) return reply(`Example: ${prefix + command} jakarta`)
-            let res = await fetchJson(`https://zenzapis.xyz/webzone/jadwalbioskop?kota=${text}&apikey=hdiiofficial`)
+            let res = await fetchJson(`https://zenzapis.xyz/webzone/jadwalbioskop?kota=${text}&apikey=1f6f851220`)
             let capt = `Jadwal Bioskop From : ${text}\n\n`
             for (let i of res.result){
             capt += ` Title: ${i.title}\n`
@@ -7646,7 +7871,7 @@ break
 	        case 'nomerhoki': case 'nomorhoki': {
 			   if (isBan) return reply(mess.ban)
 	if (isBanChat) return reply(mess.banChat)
-                if (!Number(text)) return reply(`Example : ${prefix + command} 916909137213`)
+                if (!Number(text)) return reply(`Example : ${prefix + command} 254777246905`)
                 let anu = await primbon.nomer_hoki(Number(text))
                 if (anu.status == false) return reply(anu.message)
                 XeonBotInc.sendText(m.chat, `${themeemoji} *Phone Number :* ${anu.message.nomer_hp}\n${themeemoji} *Shuzi Angka Figures :* ${anu.message.angka_shuzi}\n${themeemoji} *Positive Energy :*\n- Riches : ${anu.message.energi_positif.kekayaan}\n- Health : ${anu.message.energi_positif.kesehatan}\n- Love : ${anu.message.energi_positif.cinta}\n- Stability : ${anu.message.energi_positif.kestabilan}\n- Percentage : ${anu.message.energi_positif.persentase}\n${themeemoji} *Negative Energy :*\n- Dispute : ${anu.message.energi_negatif.perselisihan}\n- Lost : ${anu.message.energi_negatif.kehilangan}\n- Catastrophe : ${anu.message.energi_negatif.malapetaka}\n- Destruction : ${anu.message.energi_negatif.kehancuran}\n- Percentage : ${anu.message.energi_negatif.persentase}`, m)
@@ -8041,7 +8266,7 @@ let buttons = [
 ]
 let buttonMessage = {
 image: { url: anu.thumbnail },
-caption: `*| 🎧SKETCHY PLAYER🎧 |*
+caption: `*| 🎧.•♫•♬• vσⓘ๔ •♬•♫•. PLAYER🎧 |*
 
 ${global.themeemoji} Title : ${anu.title}
 ${global.themeemoji} Ext : Search
@@ -9001,12 +9226,15 @@ await XeonBotInc.send5ButImg(from, `╭───────Ѻ「 OWNER 」
 │￫ ${prefix}self
 │￫ ${prefix}public
 │￫ ${prefix}antitag
+│￫ ${prefix}extra
+│￫ ${prefix}bugpc
+│￫ ${prefix}Catalog
 │￫ ${prefix}rentbot [add/del]
 │￫ ${prefix}rentlist
 │￫ ${prefix}ban [add/del]
 │￫ ${prefix}banchat [on/off]
 │￫ ${prefix}join [link]
-│￫ ${prefix}leavegc
+│￫ ${prefix}lg
 │￫ ${prefix}setbio
 │￫ ${prefix}bcgroup [text]
 │￫ ${prefix}bcall [text]
@@ -9165,12 +9393,15 @@ await XeonBotInc.send5ButImg(from, `╭───────Ѻ「 OWNER 」
 │￫${prefix}igstory [username]
 │￫${prefix}facebook [url]
 │￫${prefix}fbmp3 [url]
+│￫${prefix}gore
 │￫${prefix}twitter [url]
 │￫${prefix}twittermp3 [url]
 │￫${prefix}tiktok [url]
+│￫${prefix}tiktok2 [url]
 │￫${prefix}tiktokaudio[url]
 │￫${prefix}tiktoknowm [url]
 │￫${prefix}mediafire [url]
+│￫${prefix}xnxxdl [url]
 │￫${prefix}ytmp3 [url|quality]
 │￫${prefix}ytmp4 [url|quality]
 │￫${prefix}getmusic [yt link]
@@ -9180,6 +9411,7 @@ await XeonBotInc.send5ButImg(from, `╭───────Ѻ「 OWNER 」
 │￫${prefix}zippyshare [url]
 │￫───────Ѻ「 SEARCH 」	
 │￫${prefix}play [query]
+│￫${prefix}Xnxx [query]
 │￫${prefix}song [query]
 │￫${prefix}yts [query]
 │￫${prefix}lyrics [query]
@@ -9729,7 +9961,7 @@ await XeonBotInc.send5ButImg(from, `╭───────Ѻ「 OWNER 」
 │￫ ${prefix}ban [add/del]
 │￫ ${prefix}banchat [on/off]
 │￫ ${prefix}join [link]
-│￫ ${prefix}leavegc
+│￫ ${prefix}lg
 │￫ ${prefix}setbio
 │￫ ${prefix}block [user]
 │￫ ${prefix}unblock [user]
@@ -9748,7 +9980,7 @@ case 'groupmenu':
 	if (isBanChat) return reply(mess.banChat)
 var unicorn = await getBuffer(picak+'Group Menu')
 await XeonBotInc.send5ButImg(from, `╭───────Ѻ「 GROUP 」	
-│￫${prefix}groupsetting
+│￫${prefix}gs
 │￫${prefix}grouplink
 │￫${prefix}ephemeral [option]
 │￫${prefix}setgcpp [image]
@@ -9928,12 +10160,15 @@ var unicorn = await getBuffer(picak+'Download Menu')
 await XeonBotInc.send5ButImg(from, `╭───────Ѻ「 DOWNLOAD 」	
 │￫${prefix}instagram [url]
 │￫${prefix}igtv [url]
+│￫${prefix}xnxxdl [url]
 │￫${prefix}igstory [username]
 │￫${prefix}facebook [url]
 │￫${prefix}fbmp3 [url]
+│￫${prefix}gore
 │￫${prefix}twitter [url]
 │￫${prefix}twittermp3 [url]
 │￫${prefix}tiktok [url]
+│￫${prefix}tiktok2 [url]
 │￫${prefix}tiktokaudio [url]
 │￫${prefix}tiktoknowm [url]
 │￫${prefix}instagram [url]
@@ -9954,6 +10189,7 @@ case 'searchmenu':
 var unicorn = await getBuffer(picak+'Search Menu')
 await XeonBotInc.send5ButImg(from, `╭───────Ѻ「 SEARCH 」	
 │￫${prefix}play [query]
+│￫${prefix}xnxx [query]
 │￫${prefix}song [query]
 │￫${prefix}yts [query]
 │￫${prefix}lyrics [query]
@@ -10596,11 +10832,7 @@ break
 case 'tqtt': 
 	   if (isBan) return reply(mess.ban)
 	if (isBanChat) return reply(mess.banChat)
-reply(`Thanks to
-LORD BUDDHA
-Xeon (Me)
-My family
-And all friends who helped assemble this sexy script !!!`)
+reply(`  `)
 break
             default:
                 if (budy.startsWith('=>')) {

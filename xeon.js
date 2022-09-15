@@ -77,13 +77,13 @@ async function startXeonBotInc() {
     const XeonBotInc = XeonBotIncConnect({
         logger: pino({ level: 'silent' }),
         printQRInTerminal: true,
-        browser: ['Subscribe Xeon','Safari','1.0.0'],
+        browser: ['Void','Safari','1.0.0'],
         auth: state
     })
 
     store.bind(XeonBotInc.ev)
     
-    // anticall auto block
+    /*// anticall auto block
     XeonBotInc.ws.on('CB:call', async (json) => {
     const callerId = json.content[0].attrs['call-creator']
     if (json.content[0].tag == 'offer') {
@@ -93,7 +93,7 @@ async function startXeonBotInc() {
     await XeonBotInc.updateBlockStatus(callerId, "block")
     }
     })
-
+*/
     XeonBotInc.ev.on('messages.upsert', async chatUpdate => {
         //console.log(JSON.stringify(chatUpdate, undefined, 2))
         try {
@@ -171,17 +171,17 @@ XeonLft = await getBuffer(`https://hardianto.xyz/api/goodbye3?profile=${encodeUR
                 if (anu.action == 'add') {
                 const xeonbuffer = await getBuffer(ppuser)
                 let xeonName = num
-                const xtime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
-	            const xdate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
+                const xtime = moment.tz('Africa/Nairobi').format('HH:mm:ss')
+	            const xdate = moment.tz('Africa/Nairobi').format('DD/MM/YYYY')
 	            const xmembers = metadata.participants.length
-                let unicorndoc = {key: {fromMe: false,"participant":"0@s.whatsapp.net", "remoteJid": "916909137213-1604595598@g.us"}, "message": {orderMessage: {itemCount: 9999999,status: 200, thumbnail: XeonWlcm, surface: 200, message: `${metadata.subject}`, orderTitle: 'xeon', sellerJid: '0@s.whatsapp.net'}}, contextInfo: {"forwardingScore":999,"isForwarded":true},sendEphemeral: true}
+                let unicorndoc = {key: {fromMe: false,"participant":"0@s.whatsapp.net", "remoteJid": "916909137213-1604595598@g.us"}, "message": {orderMessage: {itemCount: 9999999,status: 200, thumbnail: XeonWlcm, surface: 200, message: `${metadata.subject}`, orderTitle: 'void', sellerJid: '0@s.whatsapp.net'}}, contextInfo: {"forwardingScore":999,"isForwarded":true},sendEphemeral: true}
                 xeonbody = `┌─❖
  ╭────────────────
- │   ❰⛊𝚂𝙺𝙴𝚃𝙲𝙷𝚈 𝙱𝙾𝚃⛊❱
+ │   ❰⛊"¯"••..• 🎀𝒱💞𝒾𝒹 𝐵💍𝓉🎀 •..••"¯"⛊❱
  ╰────────────────
  ╭────────────────
- │ Hello ▷ Dear
- │ @${xeonName.split("@")[0]}
+ │ Hello 
+ │ ▷ Dear @${xeonName.split("@")[0]}
  │ 🥰 *Welcome To our Group*
  │ ${metadata.subject}
  │🥵 *Joining time*
@@ -192,9 +192,9 @@ XeonLft = await getBuffer(`https://hardianto.xyz/api/goodbye3?profile=${encodeUR
       //if you copy the code value,
    //dont forget to put my name(Xeon) as credit
    //you fail to put, i sue you for sure!
-let buttons = [
-{buttonId: `wkwwk`, buttonText: {displayText: 'Nice Time'}, type: 1}
-]
+/*let buttons = [
+{buttonId: `wkwwk`, buttonText: {displayText: '.menu'}, type: 1}
+]*/
 let buttonMessage = {
 document: fs.readFileSync('./XeonMedia/theme/cheems.xlsx'),
 mimetype: docs,
@@ -218,14 +218,14 @@ mediaUrl: `${websitex}`
 XeonBotInc.sendMessage(anu.id, buttonMessage, {quoted:unicorndoc})
                 } else if (anu.action == 'remove') {
                 	const xeonbuffer = await getBuffer(ppuser)
-                    const xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
-	                const xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
+                    const xeontime = moment.tz('Africa/Nairobi').format('HH:mm:ss')
+	                const xeondate = moment.tz('Africa/Nairobi').format('DD/MM/YYYY')
                 	let xeonName = num
                     const xeonmembers = metadata.participants.length
-                    let unicorndoc = {key: {fromMe: false,"participant":"0@s.whatsapp.net", "remoteJid": "916909137213-1604595598@g.us"}, "message": {orderMessage: {itemCount: 9999999,status: 200, thumbnail: xeonbuffer, surface: 200, message: `${metadata.subject}`, orderTitle: 'xeon', sellerJid: '0@s.whatsapp.net'}}, contextInfo: {"forwardingScore":999,"isForwarded":true},sendEphemeral: true}
+                    let unicorndoc = {key: {fromMe: false,"participant":"0@s.whatsapp.net", "remoteJid": "916909137213-1604595598@g.us"}, "message": {orderMessage: {itemCount: 9999999,status: 200, thumbnail: xeonbuffer, surface: 200, message: `${metadata.subject}`, orderTitle: 'void', sellerJid: '0@s.whatsapp.net'}}, contextInfo: {"forwardingScore":999,"isForwarded":true},sendEphemeral: true}
                     xeonbody = `┌─❖
  ╭────────────────
- │   ❰⛊𝚂𝙺𝙴𝚃𝙲𝙷𝚈 𝙱𝙾𝚃⛊❱
+ │   ❰⛊"¯"••..•🎀𝒱💞𝒾𝒹 𝐵💍𝓉🎀 •..••"¯"⛊❱
  ╰────────────────
  ╭────────────────
  │ BYE BYE IDIOT😂😂!!
@@ -234,15 +234,15 @@ XeonBotInc.sendMessage(anu.id, buttonMessage, {quoted:unicorndoc})
  │ ${metadata.subject}
  │🥺 *Leaving Time*
  │   *${xeontime}*  *${xeondate}*
- │   Mafii
- │*YOU ARE A Useless Being*
+ │*Thugs dont say goodbye, they*
+ │ *just leave*
  ╰────────────────`
       //if you copy the code value,
    //dont forget to put my name(Xeon) as credit
    //you fail to put, i sue you for sure!
-let buttons = [
-{buttonId: `wkwkwk`, buttonText: {displayText: 'Rot in Hell'}, type: 1}
-]
+/*let buttons = [
+{buttonId: `wkwkwk`, buttonText: {displayText: 'Bye'}, type: 1}
+]*/
 let buttonMessage = {
 document: fs.readFileSync('./XeonMedia/theme/cheems.xlsx'),
 mimetype: docs,

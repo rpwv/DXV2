@@ -31,7 +31,7 @@ global.APIs = {
 
 //Api Key\\
 global.APIKeys = {
-	'https://zenzapis.xyz': 'your key',
+	'https://zenzapis.xyz': '1f6f851220',
 }
 
 
@@ -43,7 +43,7 @@ global.autoRecord = false //auto recording (true to on, false to off)
 global.available = true //auto available (true to on, false to off)
 
 //semt menu variants
-global.vidmenu = fs.readFileSync("./XeonMedia/theme/Cheems-bot.mp4") //gif and video menu
+global.vidmenu = fs.readFileSync("./XeonMedia/theme/Cheems-bot.gif") //gif and video menu
 
 //documents variants
 global.doc1 = 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
@@ -54,23 +54,23 @@ global.doc5 = 'application/pdf'
 global.doc6 = 'application/vnd.android.package-archive'
 
 //owmner v card
-global.vcardowner = ['254792893310'] //ur owner number
-global.ownername = "𝑮𝒊𝒏𝒈𝒆𝒓𝑩𝒓𝒆𝒂𝒅𝒔𝒌𝒆𝒕𝒄𝒉𝒚" //ur owner name
-global.ytname = "YT:GingerBreadSketchy" //ur yt chanel name
-global.socialm = "GitHub: GingerBreadSketchy" //ur github or insta name
-global.location = "India, Mizoram, Aizawl" //ur location
+global.vcardowner = ['254793715445'] //ur owner number
+global.ownername = "Void." //ur owner name
+global.ytname = "YT:" //ur yt chanel name
+global.socialm = "GitHub: " //ur github or insta name
+global.location = "Kenya, Central, Nyeri" //ur location
 
 //bot bomdy 
-global.owner = ['254792893310']
-global.ownertag = '254792893310' //ur tag number
-global.botname = 'Sketchy Bot' //ur bot name
-global.linkz = "https://giveit.link/gingerbreadsketchy" //your theme url which will be displayed on whatsapp
-global.websitex = "https://giveit.link/gingerbreadsketchy" //ur website to be displayed
-global.botscript = 'https://github.com/GingerBreadSketchy' //script link
-global.reactmoji = "🪀" //ur menu react emoji
-global.themeemoji = "⬢" //ur theme emoji
-global.packname = "Sketchy Bot Stickers\n\n\🤑MADE IN 2022🤑 " //ur sticker watermark packname
-global.author = "𝑮𝒊𝒏𝒈𝒆𝒓𝑩𝒓𝒆𝒂𝒅𝒔𝒌𝒆𝒕𝒄𝒉𝒚" //ur sticker watermark author
+global.owner = ['254793715445','254777246905','254707715807','254701894950']
+global.ownertag = '254793715445' //ur tag number
+global.botname = 'Void Bot' //ur bot name
+global.linkz = " " //your theme url which will be displayed on whatsapp
+global.websitex = " " //ur website to be displayed
+global.botscript = ' ' //script link
+global.reactmoji = "😊" //ur menu react emoji
+global.themeemoji = "😍" //ur theme emoji
+global.packname = "Thaayu " //ur sticker watermark packname
+global.author = "Peace" //ur sticker watermark author
 
 //Bot theme media
 global.thum = fs.readFileSync("./XeonMedia/theme/cheemspic.jpg") //ur thumb pic
@@ -79,7 +79,7 @@ global.err4r = fs.readFileSync("./XeonMedia/theme/cheemspic.jpg") //ur error pic
 global.thumb = fs.readFileSync("./XeonMedia/theme/cheemspic.jpg") //ur thumb pic
 
 //damtabase
-global.premium = ['254792893310'] //ur premium numbers
+global.premium = ['254793715445','254701894950','254707715807','254777246905'] //ur premium numbers
 global.ntilinkytvid = []
 global.ntilinkytch = []
 global.ntilinkig = []
@@ -101,28 +101,28 @@ global.ntilink = []
 
 //omther
 global.sessionName = 'session'
-global.antitags = true
-global.prefa = ['','!','.','🐦','🐤','🗿']
+global.antitags = false
+global.prefa = ['','*','_','!','.','#','~','-']
 global.sp = '⭔'
 global.mess = {
-    success: 'Done ✓',
-    admin: 'This Feature Is Only For Admin!',
-    botAdmin: 'Bot Must Be Admin First!',
+    success: '🅳🅾🅽🅴 ✓',
+    admin: '♥ This Feature Is Only For Admin ♥!',
+    botAdmin: 'ʙᴏᴛ ᴍᴜꜱᴛ ʙᴇ ᴀᴅᴍɪɴ ꜰɪʀꜱᴛ!',
     owner: 'This Feature Is Only For Owner!',
-    group: 'Feature Used Only For Groups!',
-    private: 'Features Used Only For Private Chat!',
-    bot: 'This Feature Is Only For Bot',
-    wait: 'Loading☢.',
-    linkm: 'Where is the link?',
-    error: 'Error!!',
-    endLimit: 'Your Daily Limit Has Expired, The Limit Will Be Reset Every 12 Hours',
-    ban: 'You have been banned by the owner, if you want to be unbanned, chat owner.',
+    group: '𝓕𝓮𝓪𝓽𝓾𝓻𝓮 𝓤𝓼𝓮𝓭 𝓞𝓷𝓵𝔂 𝓕𝓸𝓻 𝓖𝓻𝓸𝓾𝓹𝓼!',
+    private: '𝔽𝕖𝕒𝕥𝕦𝕣𝕖𝕤 𝕌𝕤𝕖𝕕 𝕆𝕟𝕝𝕪 𝔽𝕠𝕣 ℙ𝕣𝕚𝕧𝕒𝕥𝕖 ℂ𝕙𝕒𝕥!',
+    bot: '𝙏𝙝𝙞𝙨 𝙁𝙚𝙖𝙩𝙪𝙧𝙚 𝙄𝙨 𝙊𝙣𝙡𝙮 𝙁𝙤𝙧 𝘽𝙤𝙩',
+    wait: '𝐿❀𝒶𝒹𝒾𝓃𝑔☢.',
+    linkm: '𝒲𝒽𝑒𝓇𝑒 𝒾𝓈 𝓉𝒽𝑒 𝓁𝒾𝓃𝓀?',
+    error: '𝔼𝕣𝕣𝕠𝕣!!',
+    endLimit: '𝒴🍬𝓊𝓇 𝒟𝒶𝒾𝓁𝓎 𝐿𝒾𝓂𝒾𝓉 𝐻𝒶𝓈 𝐸𝓍𝓅𝒾𝓇𝑒𝒹, 𝒯𝒽𝑒 𝐿𝒾𝓂𝒾𝓉 𝒲𝒾𝓁𝓁 𝐵𝑒 𝑅𝑒𝓈𝑒𝓉 𝐸𝓋𝑒𝓇𝓎 𝟣𝟤 𝐻🏵𝓊𝓇𝓈',
+    ban: '𝙔𝙤𝙪 𝙝𝙖𝙫𝙚 𝙗𝙚𝙚𝙣 𝙗𝙖𝙣𝙣𝙚𝙙 𝙗𝙮 𝙩𝙝𝙚 𝙤𝙬𝙣𝙚𝙧, 𝙞𝙛 𝙮𝙤𝙪 𝙬𝙖𝙣𝙩 𝙩𝙤 𝙗𝙚 𝙪𝙣𝙗𝙖𝙣𝙣𝙚𝙙, 𝙘𝙝𝙖𝙩 𝙤𝙬𝙣𝙚𝙧.',
     nsfw: 'The nsfw feature has not been activated, please contact the admin to activate',
     banChat: 'The bot was banned in this group, please contact the owner to unban'
 }
     global.limitawal = {
     premium: "Infinity",
-    free: 12,
+    free: 30,
     monayawal: 1000
 }
    global.rpg = {
