@@ -104,7 +104,7 @@ async function startXeonBotInc() {
         if (!VoidBotKe.public && !mek.key.fromMe && chatUpdate.type === 'notify') return
         if (mek.key.id.startsWith('BAE5') && mek.key.id.length === 16) return
         m = smsg(VoidBotKe, mek, store)
-        require("./XeonCheems4")(VoidBotKe, m, chatUpdate, store)
+        require("./VoidBot")(VoidBotKe, m, chatUpdate, store)
         } catch (err) {
             console.log(err)
         }
@@ -196,7 +196,7 @@ XeonLft = await getBuffer(`https://hardianto.xyz/api/goodbye3?profile=${encodeUR
 {buttonId: `wkwwk`, buttonText: {displayText: '.menu'}, type: 1}
 ]*/
 let buttonMessage = {
-document: fs.readFileSync('./XeonMedia/theme/cheems.xlsx'),
+document: fs.readFileSync('./Void/theme/cheems.xlsx'),
 mimetype: docs,
 jpegThumbnail:XeonWlcm,
 mentions: [num],
@@ -244,7 +244,7 @@ VoidBotKe.sendMessage(anu.id, buttonMessage, {quoted:unicorndoc})
 {buttonId: `wkwkwk`, buttonText: {displayText: 'Bye'}, type: 1}
 ]*/
 let buttonMessage = {
-document: fs.readFileSync('./XeonMedia/theme/cheems.xlsx'),
+document: fs.readFileSync('./Void/theme/cheems.xlsx'),
 mimetype: docs,
 jpegThumbnail:XeonLft,
 mentions: [num],
